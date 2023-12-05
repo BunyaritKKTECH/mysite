@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="java.html">Java</a></li>
+    </ul>
+
+    <!-- Main content -->
+    <div class="api">
+        <h5>
+            <br>
+            A - Z
+        </h5>
+        <span id="demo"></span>
+        <hr>
+        <h1>บวกเลขและคูณเลข</h1>
+        <button onclick="calculateSum()">Calculate Sum</button> <button onclick="calculateMul()"> Calculate
+            Multiplication</button>
+        <hr>
+        <h1>แปลงนาทีเป็นวัน</h1>
+        <input type="text" id="daysInput"><br>
+        <span id="show2"></span> <br>
+        <button onclick="dayToSeconds()">Calculate</button>
+        <hr>
+        <h1>แปลงอุณหภูมิ Fahrenheit to Celsius</h1>
+        <button onclick="convertTemperature()">Click</button>
+        <hr>
+        <h1>
+            Date and time
+        </h1>
+        <p id="datetime"></p>
+        <hr>
+        <h1>
+            API <br>
+            Click to change Fat cat
+        </h1>
+        <p id="demo2"></p>
+        <button onclick="myFunction()">Click me</button>
+    </div>
+
+    <script>
+        //----------//
+        function printAlphabets() {
+            // สร้างตัวแปรเพื่อเก็บตัวอักษร A-Z
+            const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            // ใช้ forEach เพื่อวนลูปผ่านทุกตัวอักษร
+            alphabets.split('').forEach((alphabet, index) => {
+                // ใช้ setTimeout เพื่อกำหนดระยะเวลาการแสดงผล
+                setTimeout(() => {
+                    document.getElementById("demo").innerHTML = alphabet;
+                    console.log(alphabet);
+                }, index * 1000); // 1000 milliseconds = 1 วินาที
+            });
+        }
+        printAlphabets();
+        //-------//
+        let calculator = {
+            read() {
+                this.a = prompt('Enter number 1');
+                this.b = prompt('Enter number 2');
+            },
+            sum() {
+                return Number(this.a) + Number(this.b);
+            },
+            mul() {
+                return this.a * this.b;
+            }
+        };
+
+        function calculateSum() {
+            calculator.read();
+            alert(calculator.sum());
+        }
+
+        function calculateMul() {
+            calculator.read();
+            alert(calculator.mul());
+        }
+        //---------//
+        function dayToSeconds() {
+            let inputDays = document.getElementById("daysInput").value;
+            if (!isNaN(inputDays)) {
+                let seconds = inputDays * 86400;
+                document.getElementById(
+                    "show2"
+                ).innerText = `จำนวนวัน ${inputDays} วัน: ${seconds} นาที`;
+            } else {
+                alert("Please enter a valid number of days.");
+            }
+        }
+        //------//
+        const fahrenheitToCelsius = fahrenheit => (fahrenheit - 32) * 5 / 9;
+
+        function convertTemperature() {
+            const temperatureInFahrenheit = prompt("Enter temperature in Fahrenheit:");
+            const temperatureInCelsius = fahrenheitToCelsius(parseFloat(temperatureInFahrenheit));
+            alert(`${temperatureInFahrenheit} degrees Fahrenheit is equal to ${temperatureInCelsius.toFixed(2)} degrees Celsius`);
+        }
+        //--------//
+        function Point(amount) {
+            // คำนวณจำนวนแต้มที่ได้จากยอดซื้อขาย
+            const points = Math.floor(amount / 100);
+            return points;
+        }
+        //---------//
+        function displayDatetime() {
+            const thaiOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false, timeZoneName: 'short' };
+            const thaiDatetime = new Date().toLocaleString('th-TH', thaiOptions);
+            document.getElementById('datetime').innerText = ` ${thaiDatetime}`;
+        }
+        setInterval(displayDatetime, 1000);
+        displayDatetime();
+        //---------//
+        function myFunction() {
+            fetch("https://catfact.ninja/fact")
+                .then(function (response) {
+                    return response.json()
+                })
+                .then(function (data) {
+                    let txt = "";
+                    for (let x in data) {
+                        txt += data[x] + " ";
+                        document.getElementById("demo2").innerHTML = txt;
+                    };
+
+                    return data;
+                })
+        }
+        //---------//
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2023 My Website | บูญญาฤทธิ์ เดชคำภู<br>
+        วิทยาลัยเทคนิคขอนแก่น<br><br>
+        <a href="https://www.facebook.com/bunyarit.detkhamphu?locale=th_TH"><img src="16001250058513950a6f333622a7ce35-removebg-preview.png" width="40px"></a>
+    </footer>
+
+</body>
+
+</html>
